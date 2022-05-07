@@ -24,7 +24,7 @@
               </div>
   
               <div class="card-body">
-                <h5 class="card-title">Sales <span>| Today</span></h5>
+                <h5 class="card-title">Data Pendidik <span>| Today</span></h5>
   
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -60,7 +60,7 @@
               </div>
   
               <div class="card-body">
-                <h5 class="card-title">Revenue <span>| This Month</span></h5>
+                <h5 class="card-title">Data Tendik <span>| This Month</span></h5>
   
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -95,7 +95,7 @@
               </div>
 
               <div class="card-body">
-                <h5 class="card-title">Sales <span>| Today</span></h5>
+                <h5 class="card-title">Data Lainnya <span>| Today</span></h5>
 
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -130,18 +130,26 @@
     </div>
 
     <div class="card-body">
-      <h5 class="card-title">Recent Activity <span>| Today</span></h5>
-
+      @forelse ($timeline as $tl)
+      
+      @empty
+          
+      @endforelse
+      <h5 class="card-title">Pengumuman Terbaru <span>| Hari Ini: @php echo date('d F, Y'); @endphp </span></h5>
+      @foreach ($timeline as $tl)
       <div class="activity">
         <!-- Batas Awal activity item-->
         <div class="activity-item d-flex">
-          <div class="activite-label">32 min</div>
+          <div class="activite-label">{{$tl->created_at->diffForhumans()}}</div>
           <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
           <div class="activity-content">
-            Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero exercitationem, numquam suscipit id voluptatem asperiores vitae doloribus neque recusandae minus ratione ullam facere dolores laboriosam dolor obcaecati deserunt et optio!
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia officiis in fugit totam sapiente recusandae aut eos ab, ea perferendis, voluptatem illo labore similique voluptate molestias dolore nihil, eius inventore.
+            <img src="{{ Storage::url('public/gambartimeline/').$tl->gambar }}" class="rounded" alt="" style="width: 500px;">
+            <br>
+            <br>
+            {{$tl->deskripsi}}
           </div>
         </div>
+        @endforeach
         <!-- Batas Akhir activity item-->
       </div>
 

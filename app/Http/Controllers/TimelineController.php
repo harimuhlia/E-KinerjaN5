@@ -16,8 +16,8 @@ class TimelineController extends Controller
      */
     public function index()
     {
-        $timeline = Timeline::All();
-        return view ('Data Master.Timeline', compact('timeline'));
+        $timeline = Timeline::all()->sortByDesc('created_at')->sortByDesc('Status')->values();
+        return view('Data Master.Timeline', compact('timeline'));
     }
 
     /**
@@ -43,23 +43,23 @@ class TimelineController extends Controller
             'gambar' => 'required|image|mimes:png,jpg,jpeg'
         ]);
         //upload image
-    $gambar = $request->file('gambar');
-    $gambar->storeAs('public/gambartimeline', $gambar->hashName());
+        $gambar = $request->file('gambar');
+        $gambar->storeAs('public/gambartimeline', $gambar->hashName());
 
-    $timeline = Timeline::create([
-        'gambar'     => $gambar->hashName(),
-        'judul'     => $request->judul,
-        'deskripsi'   => $request->deskripsi
-    ]);
+        $timeline = Timeline::create([
+            'gambar'     => $gambar->hashName(),
+            'judul'     => $request->judul,
+            'deskripsi'   => $request->deskripsi
+        ]);
 
-    if($timeline){
-        //redirect dengan pesan sukses
-        return redirect()->route('timeline.index')->with(['success' => 'Data Berhasil Disimpan!']);
-    }else{
-        //redirect dengan pesan error
-        return redirect()->route('timeline.index')->with(['error' => 'Data Gagal Disimpan!']);
+        if ($timeline) {
+            //redirect dengan pesan sukses
+            return redirect()->route('timeline.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        } else {
+            //redirect dengan pesan error
+            return redirect()->route('timeline.index')->with(['error' => 'Data Gagal Disimpan!']);
+        }
     }
-}
     /**
      * Display the specified resource.
      *
@@ -94,38 +94,36 @@ class TimelineController extends Controller
         $this->validate($request, [
             'judul' => 'required'
         ]);
-    
+
         //get data Timeline by ID
         $timeline = Timeline::findOrFail($timeline->id);
-    
-        if($request->file('gambar') == "") {
-    
+
+        if ($request->file('gambar') == "") {
+
             $timeline->update([
                 'judul'     => $request->judul,
                 'deskripsi'   => $request->deskripsi
             ]);
-    
         } else {
-    
+
             //hapus old image
-            Storage::disk('local')->delete('public/gambartimeline/'.$timeline->gambar);
-    
+            Storage::disk('local')->delete('public/gambartimeline/' . $timeline->gambar);
+
             //upload new image
             $gambar = $request->file('gambar');
             $gambar->storeAs('public/gambartimeline', $gambar->hashName());
-    
+
             $timeline->update([
                 'gambar'     => $gambar->hashName(),
                 'judul'     => $request->judul,
                 'deskripsi'   => $request->deskripsi
             ]);
-    
         }
 
-        if($timeline){
+        if ($timeline) {
             //redirect dengan pesan sukses
             return redirect()->route('timeline.index')->with(['success' => 'Data Berhasil Diupdate!']);
-        }else{
+        } else {
             //redirect dengan pesan error
             return redirect()->route('timeline.index')->with(['error' => 'Data Gagal Diupdate!']);
         }
@@ -140,15 +138,15 @@ class TimelineController extends Controller
     public function destroy($id)
     {
         $timeline = Timeline::findOrFail($id);
-        Storage::disk('local')->delete('public/gambartimeline/'.$timeline->gambar);
+        Storage::disk('local')->delete('public/gambartimeline/' . $timeline->gambar);
         $timeline->delete();
-      
-        if($timeline){
-           //redirect dengan pesan sukses
-           return redirect()->route('timeline.index')->with(['success' => 'Data Berhasil Dihapus!']);
-        }else{
-          //redirect dengan pesan error
-          return redirect()->route('timeline.index')->with(['error' => 'Data Gagal Dihapus!']);
+
+        if ($timeline) {
+            //redirect dengan pesan sukses
+            return redirect()->route('timeline.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        } else {
+            //redirect dengan pesan error
+            return redirect()->route('timeline.index')->with(['error' => 'Data Gagal Dihapus!']);
         }
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Timeline;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -13,7 +15,9 @@ class DashboardController extends Controller
      */
     public function DashboardAdmin()
     {
-        return view('Dashboard.Admin');
+        $timeline = Timeline::all()->sortByDesc('created_at')->sortByDesc('Status')->values();
+        // $timeline = Timeline::All()->orderBy('created_at', 'DESC')->get();
+        return view('Dashboard.Admin', compact('timeline'));
     }
 
     public function DashboardPengguna()
