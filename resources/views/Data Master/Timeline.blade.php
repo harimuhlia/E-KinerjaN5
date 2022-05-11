@@ -58,7 +58,7 @@
             @foreach ($timeline as $tl)
             <td>{{ $loop->iteration }}</td>
             <td>{{ $tl->judul }}</td>
-            <td>{{ $tl->deskripsi }}</td>
+            <td>{!! Str::limit("$tl->deskripsi", 80) !!}</td>
             <td>
               <img src="{{ Storage::url('public/gambartimeline/').$tl->gambar }}" class="rounded" alt="" style="width: 80px;">
           </td>

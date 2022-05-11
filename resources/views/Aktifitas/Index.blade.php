@@ -6,7 +6,7 @@
 <section class="section profile">
     <div class="row">
       <div class="col-xl-7">
-        <head>
+        {{-- <head>
           <title>Laravel 8 FullCalendar Tutorial</title>
           <meta name="csrf-token" content="{{ csrf_token() }}">
           <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
@@ -122,7 +122,7 @@
                  toastr.success(message, 'Event');
              } 
                
-          </script>
+          </script> --}}
         <div class="alert alert-info bg-light border-0 alert-dismissible fade show" role="alert">
           <a href="#" class="badge bg-success">Backup Aktifitas Bulan Januari</a>
           <p><i class="bi bi-file-earmark-excel"></i> Backuplah Aktifitas Secara Berkala. Untuk Berjaga-jaga, dan Anda juga menyimpan Data Aktifitas Anda Sendiri. </p>
@@ -163,16 +163,16 @@
                               </thead>
                               <span class="badge border-success border-1 text-info">Tanggal Hari Ini: 16 Sep 2021</span>
                               <tbody>
-                                @foreach ($kategoris as $item)
+                                @foreach ($kategoris as $utama)
                                 <th scope="row">{{ $loop->iteration }}</th>
                                   <td>
-                                      {{$item->nama_aktifitas}}
+                                      {{$utama->nama_aktifitas}}
                                       <span class="badge border-success border-1 text-info">Waktu: 300 Menit</span>
                                   </td>
                                   <td>
                                     <!-- Basic Modal -->
-                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#laporUtama{{ $item->id }}">Lapor</button>
-                        <div class="modal fade" id="laporUtama{{ $item->id }}" >
+                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#laporUtama{{ $utama->id }}">Lapor</button>
+                        <div class="modal fade" id="laporUtama{{ $utama->id }}" >
                           <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="card">
@@ -180,7 +180,7 @@
                                       <h4>Input Aktifitas Utama</h4>
                                     </div>
                                     <div class="card-body">
-                                      <h5 class="card-title">{{$item->nama_aktifitas}}</h5>
+                                      <h5 class="card-title">{{$utama->nama_aktifitas}}</h5>
                                       <!-- Multi Columns Form -->
                                       <form class="row g-3" action="#" method="POST">
                                         @csrf
@@ -232,6 +232,7 @@
                         <!-- End Basic Modal-->
                                   </td>
                                 </tr>
+                                @endforeach
                               </tbody>
                             </table>
                             <!-- End Table with stripped rows -->
@@ -255,17 +256,18 @@
                             <!-- Table with stripped rows -->
                             <table class="table datatable">
                               </thead>
+                              <span class="badge border-success border-1 text-info">Tanggal Hari Ini: 16 Sep 2021</span>
                               <tbody>
-                                <tr>
+                                @foreach ($kategoris as $tambahan)
                                   <th scope="row">{{ $loop->iteration }}</th>
                                   <td>
-                                      {{$item->nama_aktifitas}}
+                                      {{$tambahan->nama_aktifitas}}
                                       <span class="badge border-success border-1 text-info">Waktu: 300 Menit</span>
                                   </td>
                                   <td>
                                                                         <!-- Basic Modal -->
-                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#laporTambahan{{ $item->id }}">Lapor</button>
-                        <div class="modal fade" id="laporTambahan{{ $item->id }}" >
+                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#laporTambahan{{ $tambahan->id }}">Lapor</button>
+                        <div class="modal fade" id="laporTambahan{{ $tambahan->id }}" >
                           <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="card">
@@ -273,7 +275,7 @@
                                       <h4>Input Aktifitas Utama</h4>
                                     </div>
                                     <div class="card-body">
-                                      <h5 class="card-title">{{$item->nama_aktifitas}}</h5>
+                                      <h5 class="card-title">{{$tambahan->nama_aktifitas}}</h5>
                                       <!-- Multi Columns Form -->
                                       <form class="row g-3" action="#" method="POST">
                                         @csrf

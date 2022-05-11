@@ -35,7 +35,7 @@ Auth::routes();
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Route untuk bagian Dashboard
-Route::get('/dashboard/admin', [DashboardController::class, 'DashboardAdmin'])->name('DashboardAdmin');
+// Route::get('/dashboard/admin', [DashboardController::class, 'DashboardAdmin'])->name('DashboardAdmin');
 // Route::get('/dashboard/pengguna', [DashboardController::class, 'DashboardPengguna'])->name('DashboardPengguna');
 
 //Route Untuk Data Master

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Timeline;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $timeline = Timeline::all()->sortByDesc('created_at')->sortByDesc('Status')->values();
+        return view('Dashboard.Admin', compact('timeline'));
+        // return view('Dashboard.Admin');
     }
 }

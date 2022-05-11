@@ -26,8 +26,8 @@
                               <label for="tupoksi">Kategori</label>
                               <select name="kategori" id="" class="form-control">
                                   <option value="">Pilih Kategori...</option>
-                                  <option value="utama">Utama</option>
-                                  <option value="tambahan">Tambahan</option>
+                                  <option value="Utama">Utama</option>
+                                  <option value="Tambahan">Tambahan</option>
                               </select>
                               <label for="tupoksi">Nama Aktifitas</label>
                               <input id="status" class="form-control @error('status') is-invalid @enderror" type="text" name="nama_aktifitas" required>
@@ -56,11 +56,7 @@
           <tr>
             @foreach ($kategoris as $tp)
             <td>{{ $loop->iteration }}</td>
-            <td>
-                <span class="text-uppercase">
-                    {{$tp->kategori}}
-                </span>
-            </td>
+            <td>{{ $tp->kategori }}</td>
             <td>{{ $tp->nama_aktifitas }}</td>
             <td>
                <!-- Modal Edit -->
@@ -80,8 +76,8 @@
                             <label for="tupoksi">Kategori</label>
                             <select name="kategori" id="" class="form-control">
                                 <option value="">Pilih Kategori...</option>
-                                <option value="utama" {{$tp->kategori == 'utama' ? 'selected' : ''}}>Utama</option>
-                                <option value="tambahan" {{$tp->kategori == 'tambahan' ? 'selected' : ''}}>Tambahan</option>
+                                <option value="Utama" {{$tp->kategori == 'Utama' ? 'selected' : ''}}>Utama</option>
+                                <option value="Tambahan" {{$tp->kategori == 'Tambahan' ? 'selected' : ''}}>Tambahan</option>
                             </select>
                             <label for="tupoksi">Nama Aktifitas</label>
                             <input id="status" value="{{ $tp->nama_aktifitas }}" class="form-control @error('status') is-invalid @enderror" type="text" name="nama_aktifitas" required>
